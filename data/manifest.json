@@ -1,0 +1,17 @@
+{
+  "collections": {
+    "careers": 29,
+    "completed": 110,
+    "courses": 89,
+    "has_skill": 274,
+    "offered_by": 89,
+    "prerequisite": 173,
+    "providers": 8,
+    "requires_skill": 312,
+    "skills": 248,
+    "targets_career": 40,
+    "teaches": 172,
+    "users": 40
+  },
+  "total_records": 1584
+}

@@ -1,0 +1,17 @@
+# Chuẩn hoá xuống dòng: lưu LF trong repo, Windows tự chuyển CRLF khi checkout
+* text=auto eol=lf
+
+# File nhị phân — không xử lý xuống dòng, không diff text
+*.docx binary
+*.pptx binary
+*.xlsx binary
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.zip  binary
+
+# Ngôn ngữ để GitHub hiển thị thống kê đúng
+*.py   text
+*.aql  text
+*.jsonl text
+*.md   text

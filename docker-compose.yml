@@ -1,0 +1,25 @@
+services:
+  arangodb:
+    image: arangodb:3.12
+    container_name: arangodb
+    restart: unless-stopped
+    ports:
+      - "8529:8529"
+    environment:
+      # Đổi mật khẩu này trước khi chạy thật. Không commit mật khẩu thật.
+      ARANGO_ROOT_PASSWORD: "matkhau_doi_di"
+    volumes:
+      - arangodb_data:/var/lib/arangodb3
+      - arangodb_apps:/var/lib/arangodb3-apps
+      # Bỏ comment dòng dưới để mount sẵn thư mục dump:
+      # - ./skill_graph_db_dump:/tmp/dump:ro
+    healthcheck:
+      test: ["CMD", "arangosh", "--server.password", "matkhau_doi_di",
+             "--javascript.execute-string", "require('@arangodb').db._version()"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  arangodb_data:
+  arangodb_apps:

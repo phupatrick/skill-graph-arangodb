@@ -1,0 +1,7 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+
+# Chỉ cần cho phần kiểm thử (không bắt buộc khi chỉ chạy server):
+# pytest>=8
+# httpx>=0.27

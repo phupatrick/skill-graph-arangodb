@@ -1,0 +1,368 @@
+// ============================================================================
+//  SKILL GRAPH — BỘ TRUY VẤN AQL CHO ĐỒ ÁN
+//  Database: skill_graph_db   |   Graph: skill_graph   |   ArangoDB 3.12
+// ----------------------------------------------------------------------------
+//  Cách dùng:
+//    1. Mở http://127.0.0.1:8529  →  đăng nhập  →  chọn DB skill_graph_db
+//    2. Tab QUERIES  →  dán MỘT khối (từ dòng "--- A1" tới trước khối kế)
+//    3. Run  →  chụp ảnh kết quả để đưa vào báo cáo
+//
+//  LƯU Ý: chạy từng khối, đừng bôi đen cả file rồi Run.
+// ============================================================================
+
+
+// ============================================================================
+//  PHẦN A — TRUY VẤN CƠ BẢN
+// ============================================================================
+
+// --- A1. Đếm số bản ghi của cả 12 collection ------------------------------
+FOR name IN ["users","skills","careers","courses","providers",
+             "has_skill","targets_career","requires_skill",
+             "prerequisite","teaches","completed","offered_by"]
+  RETURN { collection: name, so_ban_ghi: COLLECTION_COUNT(name) }
+
+
+// --- A2. Liệt kê 10 nghề nghiệp ------------------------------------------
+FOR c IN careers
+  SORT c.name
+  LIMIT 10
+  RETURN { _key: c._key, ten: c.name, linh_vuc: c.category }
+
+
+// --- A3. Tìm kỹ năng theo từ khoá ----------------------------------------
+LET tu_khoa = "python"
+FOR s IN skills
+  FILTER CONTAINS(LOWER(s.name), LOWER(tu_khoa))
+  SORT s.name
+  RETURN { _key: s._key, ten: s.name, nhom: s.category }
+
+
+// --- A4. Lọc kỹ năng theo nhóm -------------------------------------------
+FOR s IN skills
+  FILTER s.category == "Programming"
+  SORT s.name
+  LIMIT 20
+  RETURN s.name
+
+
+// --- A5. Một người dùng và toàn bộ kỹ năng hiện có ------------------------
+FOR u IN users
+  FILTER u._key == "user_001"
+  LET ky_nang = (
+    FOR v, e IN 1..1 OUTBOUND u has_skill
+      SORT v.name
+      RETURN { ten: v.name, trinh_do: e.proficiency }
+  )
+  RETURN {
+    ho_ten: u.full_name,
+    email: u.email,
+    so_ky_nang: LENGTH(ky_nang),
+    ky_nang: ky_nang
+  }
+
+
+// --- A6. Nghề mục tiêu của người dùng ------------------------------------
+FOR u IN users
+  FILTER u._key == "user_001"
+  FOR v, e IN 1..1 OUTBOUND u targets_career
+    RETURN { nguoi_dung: u.full_name, nghe_muc_tieu: v.name, uu_tien: e.priority }
+
+
+// --- A7. Khoá học đã hoàn thành của một người ----------------------------
+FOR u IN users
+  FILTER u._key == "user_001"
+  FOR v, e IN 1..1 OUTBOUND u completed
+    SORT e.completed_at DESC
+    RETURN { khoa_hoc: v.title, diem: e.score, tien_do: e.progress, ngay: e.completed_at }
+
+
+// --- A8. CRUD — thêm một người dùng mới ----------------------------------
+// Bỏ comment 4 dòng dưới để chạy. Chạy lại lần 2 sẽ báo trùng _key (đúng).
+// INSERT {
+//   _key: "user_demo",
+//   full_name: "Nguyen Van Demo",
+//   email: "demo@skillgraph.demo",
+//   education_level: "University",
+//   major: "Information Systems",
+//   experience_years: 1.5,
+//   account_status: "active",
+//   data_origin: "manual_demo"
+// } INTO users
+// RETURN NEW
+
+
+// --- A9. CRUD — thêm/cập nhật kỹ năng của người dùng ---------------------
+// UPSERT { _from: "users/user_001", _to: "skills/python" }
+//   INSERT { _from: "users/user_001", _to: "skills/python",
+//            proficiency: 40, assessment_method: "self_declared" }
+//   UPDATE { proficiency: 60, assessment_method: "self_declared" }
+//   IN has_skill
+//   RETURN NEW
+
+
+// --- A10. CRUD — xoá người dùng demo và các cạnh liên quan ---------------
+// LET uid = "users/user_demo"
+// LET xoa1 = (FOR e IN has_skill     FILTER e._from == uid REMOVE e IN has_skill)
+// LET xoa2 = (FOR e IN targets_career FILTER e._from == uid REMOVE e IN targets_career)
+// LET xoa3 = (FOR e IN completed     FILTER e._from == uid REMOVE e IN completed)
+// REMOVE { _key: "user_demo" } IN users OPTIONS { ignoreErrors: true }
+// RETURN { da_xoa_canh: [LENGTH(xoa1), LENGTH(xoa2), LENGTH(xoa3)] }
+
+
+// ============================================================================
+//  PHẦN B — TRUY VẤN NÂNG CAO (GRAPH TRAVERSAL)
+// ============================================================================
+
+// --- B1. Nghề yêu cầu những kỹ năng gì (1 tầng) --------------------------
+FOR c IN careers
+  FILTER c._key == "data_analyst"
+  LET yeu_cau = (
+    FOR s, e IN 1..1 OUTBOUND c requires_skill
+      SORT e.requirement_type, e.importance DESC
+      RETURN {
+        ky_nang: s.name,
+        loai: e.requirement_type,
+        muc_can_dat: e.required_level,
+        do_quan_trong: e.importance
+      }
+  )
+  RETURN { nghe: c.name, tong_yeu_cau: LENGTH(yeu_cau), yeu_cau: yeu_cau }
+
+
+// --- B2. SKILL GAP — kỹ năng còn thiếu so với nghề mục tiêu ---------------
+// So sánh requires_skill (nghề yêu cầu) với has_skill (người đã có).
+// Đây là truy vấn trả lời trực tiếp câu hỏi nghiệp vụ của đề tài.
+LET uid = "users/user_001"
+FOR c IN careers
+  FILTER c._key == "data_analyst"
+  LET yeu_cau = (
+    FOR s, e IN 1..1 OUTBOUND c requires_skill
+      LET hien_co = FIRST(
+        FOR hs IN has_skill
+          FILTER hs._from == uid AND hs._to == s._id
+          RETURN hs.proficiency
+      )
+      RETURN {
+        ky_nang: s.name,
+        can: e.required_level,
+        hien_co: hien_co,
+        trang_thai: hien_co == null ? "THIEU_HAN"
+                  : (hien_co < e.required_level ? "CHUA_DU" : "DAT"),
+        thieu_bao_nhieu: hien_co == null
+                  ? e.required_level
+                  : MAX([0, e.required_level - hien_co])
+      }
+  )
+  LET so_dat = LENGTH(FOR x IN yeu_cau FILTER x.trang_thai == "DAT" RETURN 1)
+  RETURN {
+    nghe: c.name,
+    tong_yeu_cau: LENGTH(yeu_cau),
+    so_da_dat: so_dat,
+    so_con_thieu: LENGTH(yeu_cau) - so_dat,
+    ty_le_dap_ung: ROUND(100 * so_dat / LENGTH(yeu_cau), 1),
+    chi_tiet: yeu_cau
+  }
+
+
+// --- B3. PREREQUISITE — duyệt nhiều tầng tìm toàn bộ kỹ năng nền ----------
+// Điểm mạnh của Graph DB: 1 câu traversal thay cho N vòng lặp ở SQL.
+// p.vertices[i] cho biết đường đi; LENGTH(p.vertices)-1 = độ sâu.
+FOR s IN skills
+  FILTER s._key == "deep_learning"
+  LET nen_tang = (
+    FOR v, e, p IN 1..5 INBOUND s prerequisite
+      RETURN DISTINCT { ky_nang_nen: v.name, do_sau: LENGTH(p.vertices) - 1 }
+  )
+  RETURN {
+    ky_nang: s.name,
+    so_ky_nang_nen: LENGTH(nen_tang),
+    tang_sau_nhat: MAX(nen_tang[*].do_sau),
+    danh_sach: nen_tang
+  }
+
+
+// --- B4. PREREQUISITE — đường đi đầy đủ từ gốc tới đích -------------------
+FOR s IN skills
+  FILTER s._key == "deep_learning"
+  FOR v, e, p IN 1..4 INBOUND s prerequisite
+    RETURN {
+      duong_di: CONCAT_SEPARATOR(" <- ", p.vertices[*].name),
+      do_dai: LENGTH(p.vertices) - 1
+    }
+
+
+// --- B5. KHOÁ HỌC dạy một kỹ năng, kèm nhà cung cấp ----------------------
+FOR s IN skills
+  FILTER s._key == "python"
+  LET khoa_hoc = (
+    FOR co, e IN 1..1 INBOUND s teaches
+      LET ncc = FIRST(FOR p IN 1..1 OUTBOUND co offered_by RETURN p.name)
+      RETURN {
+        khoa_hoc: co.title,
+        cap_do: co.level,
+        so_gio: co.duration_hours,
+        vai_tro: e.role,
+        nha_cung_cap: ncc
+      }
+  )
+  RETURN { ky_nang: s.name, so_khoa_hoc: LENGTH(khoa_hoc), khoa_hoc: khoa_hoc }
+
+
+// --- B6. CAREER FIT — điểm phù hợp của user với mọi nghề -----------------
+// Công thức: tổng importance của kỹ năng đã đạt / tổng importance yêu cầu.
+LET uid = "users/user_001"
+LET ky_nang_user = (
+  FOR v, e IN 1..1 OUTBOUND DOCUMENT(uid) has_skill
+    RETURN { id: v._id, trinh_do: e.proficiency }
+)
+FOR c IN careers
+  LET yeu_cau = (
+    FOR s, e IN 1..1 OUTBOUND c requires_skill
+      RETURN { id: s._id, can: e.required_level, w: e.importance }
+  )
+  LET tong_trong_so = SUM(FOR x IN yeu_cau RETURN x.w)
+  LET dat_duoc = SUM(
+    FOR x IN yeu_cau
+      LET co = FIRST(FOR k IN ky_nang_user FILTER k.id == x.id RETURN k.trinh_do)
+      FILTER co != null AND co >= x.can
+      RETURN x.w
+  )
+  LET diem = ROUND(100 * dat_duoc / MAX([tong_trong_so, 1]), 1)
+  SORT diem DESC
+  LIMIT 5
+  RETURN { nghe: c.name, diem_phu_hop: diem, so_ky_nang_yeu_cau: LENGTH(yeu_cau) }
+
+
+// --- B7. KHOÁ HỌC user CHƯA học nhưng cần cho nghề mục tiêu --------------
+// "Chưa đạt" = chưa có kỹ năng HOẶC có nhưng proficiency < required_level.
+LET uid = "users/user_001"
+LET da_hoc = (FOR co IN 1..1 OUTBOUND DOCUMENT(uid) completed RETURN co._id)
+LET trinh_do = (
+  FOR v, e IN 1..1 OUTBOUND DOCUMENT(uid) has_skill
+    RETURN { id: v._id, muc: e.proficiency }
+)
+FOR c IN careers
+  FILTER c._key == "data_analyst"
+  FOR s, e IN 1..1 OUTBOUND c requires_skill
+    LET muc_hien_tai = FIRST(
+      FOR t IN trinh_do FILTER t.id == s._id RETURN t.muc
+    )
+    FILTER muc_hien_tai == null OR muc_hien_tai < e.required_level
+    FOR co IN 1..1 INBOUND s teaches
+      FILTER co._id NOT IN da_hoc
+      LIMIT 15
+      RETURN DISTINCT {
+        ky_nang: s.name,
+        khoa_hoc: co.title,
+        cap_do: co.level,
+        so_gio: co.duration_hours
+      }
+
+
+// --- B8. LEARNING PATH — sinh lộ trình có thứ tự -------------------------
+// Ý tưởng:
+//   (1) lấy kỹ năng nghề yêu cầu mà user CHƯA ĐẠT mức
+//   (2) với mỗi kỹ năng, leo ngược prerequisite để lấy kỹ năng nền còn thiếu
+//   (3) gộp lại, bỏ trùng
+//   (4) sắp xếp theo ĐỘ SÂU NỀN trong đồ thị: nền nông học trước
+//       (Python sâu 0 -> học trước; Pandas sâu 1 -> học sau)
+// Ghi chú trung thực: đây là heuristic theo độ sâu. Thứ tự chính xác tuyệt
+// đối cần topological sort (đã cài trong backend, xem /learning-path).
+LET uid = "users/user_001"
+LET trinh_do = (
+  FOR v, e IN 1..1 OUTBOUND DOCUMENT(uid) has_skill
+    RETURN { id: v._id, muc: e.proficiency }
+)
+LET ung_vien = (
+  FOR c IN careers
+    FILTER c._key == "data_analyst"
+    FOR s, e IN 1..1 OUTBOUND c requires_skill
+      LET muc = FIRST(FOR t IN trinh_do FILTER t.id == s._id RETURN t.muc)
+      FILTER muc == null OR muc < e.required_level
+      LET nen = (
+        FOR v, e2, p IN 1..3 INBOUND s prerequisite
+          LET muc_nen = FIRST(FOR t IN trinh_do FILTER t.id == v._id RETURN t.muc)
+          FILTER muc_nen == null OR muc_nen < e2.required_level
+          RETURN { id: v._id, ten: v.name }
+      )
+      RETURN UNION_DISTINCT([{ id: s._id, ten: s.name }], nen)
+)
+LET can_hoc = (
+  FOR x IN UNIQUE(FLATTEN(ung_vien))
+    COLLECT id = x.id, ten = x.ten
+    // do_sau = độ sâu prerequisite lớn nhất phía sau kỹ năng này (0 = không cần nền)
+    LET cac_tang = (
+      FOR v, e, p IN 1..5 INBOUND DOCUMENT(id) prerequisite
+        RETURN LENGTH(p.vertices) - 1
+    )
+    RETURN { id: id, ten: ten, do_sau: LENGTH(cac_tang) ? MAX(cac_tang) : 0 }
+)
+LET buoc_hoc = (
+  FOR c IN can_hoc
+    SORT c.do_sau, c.ten
+    RETURN c
+)
+FOR b IN buoc_hoc
+  RETURN {
+    buoc: POSITION(buoc_hoc[*].id, b.id) + 1,
+    ky_nang: b.ten,
+    do_sau_prerequisite: b.do_sau
+  }
+
+
+// --- B9. ĐẢO NGƯỢC — kỹ năng này mở khoá được nghề nào -------------------
+FOR s IN skills
+  FILTER s._key == "python"
+  LET nghe = (
+    FOR c, e IN 1..1 INBOUND s requires_skill
+      RETURN { nghe: c.name, loai: e.requirement_type, can: e.required_level }
+  )
+  RETURN { ky_nang: s.name, mo_khoa_cho: LENGTH(nghe), danh_sach: nghe }
+
+
+// --- B10. TOP nhà cung cấp theo số khoá học ------------------------------
+FOR p IN providers
+  LET so_khoa = LENGTH(FOR co IN 1..1 INBOUND p offered_by RETURN 1)
+  SORT so_khoa DESC
+  RETURN { nha_cung_cap: p.name, so_khoa_hoc: so_khoa }
+
+
+// --- B11. SHORTEST PATH giữa 2 kỹ năng qua quan hệ prerequisite ----------
+FOR a IN skills
+  FILTER a._key == "deep_learning"
+  FOR b IN skills
+    FILTER b._key == "statistics"
+    RETURN {
+      tu: a.name,
+      den: b.name,
+      duong_ngan_nhat: FIRST(
+        FOR v, e, p IN ANY SHORTEST_PATH a TO b prerequisite
+          RETURN p.vertices[*].name
+      )
+    }
+
+
+// --- B12. Kỹ năng KHÔNG có khoá học nào dạy (khoảng trống dữ liệu) -------
+FOR s IN skills
+  LET so_khoa = LENGTH(FOR co IN 1..1 INBOUND s teaches RETURN 1)
+  FILTER so_khoa == 0
+  SORT s.name
+  LIMIT 20
+  RETURN { ky_nang: s.name, nhom: s.category }
+
+
+// --- B13. Thống kê tổng hợp toàn hệ thống --------------------------------
+RETURN {
+  so_nguoi_dung: COLLECTION_COUNT("users"),
+  so_ky_nang: COLLECTION_COUNT("skills"),
+  so_nghe_nghiep: COLLECTION_COUNT("careers"),
+  so_khoa_hoc: COLLECTION_COUNT("courses"),
+  so_nha_cung_cap: COLLECTION_COUNT("providers"),
+  so_canh_has_skill: COLLECTION_COUNT("has_skill"),
+  so_canh_targets_career: COLLECTION_COUNT("targets_career"),
+  so_canh_requires_skill: COLLECTION_COUNT("requires_skill"),
+  so_canh_prerequisite: COLLECTION_COUNT("prerequisite"),
+  so_canh_teaches: COLLECTION_COUNT("teaches"),
+  so_canh_completed: COLLECTION_COUNT("completed"),
+  so_canh_offered_by: COLLECTION_COUNT("offered_by")
+}

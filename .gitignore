@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Môi trường ảo
+.venv/
+venv/
+env/
+ENV/
+
+# Biến môi trường (có thể chứa mật khẩu ArangoDB)
+.env
+.env.*
+!.env.example
+
+# Cấu hình IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Hệ điều hành
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ArangoDB dump gốc (nặng, không cần đưa lên repo — đã trích ra data/*.jsonl)
+*.tar.gz
+*.dump
+dump/
+
+# Tệp tạm khi sinh tài liệu
+~$*.docx
+~$*.pptx
+~$*.xlsx
+*.pdf.tmp
+
+# Log
+*.log

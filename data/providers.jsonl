@@ -1,0 +1,8 @@
+{"_id": "providers/coursera", "_key": "coursera", "active": true, "name": "Coursera", "type": "MOOC Platform"}
+{"_id": "providers/edx", "_key": "edx", "active": true, "name": "edX", "type": "MOOC Platform"}
+{"_id": "providers/mit_ocw", "_key": "mit_ocw", "active": true, "name": "MIT OpenCourseWare", "type": "Open Courseware"}
+{"_id": "providers/freecodecamp", "_key": "freecodecamp", "active": true, "name": "freeCodeCamp", "type": "Open Learning Platform"}
+{"_id": "providers/microsoft_learn", "_key": "microsoft_learn", "active": true, "name": "Microsoft Learn", "type": "Vendor Learning Platform"}
+{"_id": "providers/google_cloud_skills", "_key": "google_cloud_skills", "active": true, "name": "Google Cloud Skills Boost", "type": "Vendor Learning Platform"}
+{"_id": "providers/cisco_netacad", "_key": "cisco_netacad", "active": true, "name": "Cisco Networking Academy", "type": "Vendor Learning Platform"}
+{"_id": "providers/kaggle_learn", "_key": "kaggle_learn", "active": true, "name": "Kaggle Learn", "type": "Open Learning Platform"}

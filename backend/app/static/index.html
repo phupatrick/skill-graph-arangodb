@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skill Graph — Lộ trình học cá nhân hóa</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#141b31; --panel2:#1b2440; --line:#2a3557;
+    --text:#e8ecf7; --muted:#93a0c0; --accent:#5b8cff; --accent2:#39d3a0;
+    --warn:#ffb454; --bad:#ff6b81; --ok:#39d3a0;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;
+    background:radial-gradient(1200px 600px at 20% -10%,#1a2444 0%,var(--bg) 55%);
+    color:var(--text); min-height:100vh;
+  }
+  header{
+    display:flex; align-items:center; gap:16px; padding:18px 28px;
+    border-bottom:1px solid var(--line); background:rgba(11,16,32,.75);
+    backdrop-filter:blur(8px); position:sticky; top:0; z-index:10;
+  }
+  header h1{font-size:17px; margin:0; letter-spacing:.2px}
+  header .sub{font-size:12px; color:var(--muted)}
+  .badge{
+    margin-left:auto; font-size:12px; padding:5px 11px; border-radius:999px;
+    border:1px solid var(--line); color:var(--muted);
+  }
+  .badge b{color:var(--accent2)}
+  main{max-width:1240px; margin:0 auto; padding:24px 20px 60px}
+  .controls{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px;
+  }
+  .field{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:12px 14px}
+  .field label{display:block; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:7px}
+  select{
+    width:100%; background:var(--panel2); color:var(--text); border:1px solid var(--line);
+    border-radius:9px; padding:9px 11px; font-size:14px; outline:none;
+  }
+  select:focus{border-color:var(--accent)}
+  .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px}
+  .tab{
+    background:var(--panel); border:1px solid var(--line); color:var(--muted);
+    padding:9px 16px; border-radius:999px; cursor:pointer; font-size:13.5px;
+    transition:.16s;
+  }
+  .tab:hover{color:var(--text); border-color:#3a4a78}
+  .tab.active{background:linear-gradient(135deg,#2a4b9b,#1f3a7a); color:#fff; border-color:#3f63c4}
+  .panel{display:none}
+  .panel.active{display:block; animation:fade .22s ease}
+  @keyframes fade{from{opacity:0; transform:translateY(4px)}to{opacity:1; transform:none}}
+
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:20px}
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px}
+  .card .k{font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--muted)}
+  .card .v{font-size:26px; font-weight:650; margin-top:6px; font-variant-numeric:tabular-nums}
+  .card .v small{font-size:13px; color:var(--muted); font-weight:400}
+
+  .bar{height:8px; border-radius:999px; background:#202a48; overflow:hidden; margin-top:10px}
+  .bar > i{display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#3f63c4,#39d3a0)}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px}
+  th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.07em;
+    color:var(--muted); font-weight:600; padding:10px 12px; border-bottom:1px solid var(--line);
+  }
+  td{padding:11px 12px; border-bottom:1px solid #1e2740; vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#161e36}
+
+  .pill{font-size:11.5px; padding:3px 9px; border-radius:999px; white-space:nowrap; border:1px solid transparent}
+  .pill.missing{background:rgba(255,107,129,.13); color:#ff9aa8; border-color:rgba(255,107,129,.3)}
+  .pill.below{background:rgba(255,180,84,.13); color:#ffc987; border-color:rgba(255,180,84,.3)}
+  .pill.ok{background:rgba(57,211,160,.13); color:#6fe3bd; border-color:rgba(57,211,160,.3)}
+
+  .steps{display:flex; flex-direction:column; gap:10px}
+  .step{
+    display:grid; grid-template-columns:44px 1fr; gap:14px;
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px;
+  }
+  .step .num{
+    width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,#2a4b9b,#1c3468); font-weight:700; font-size:14px; color:#cfe0ff;
+  }
+  .step h4{margin:0 0 4px; font-size:15px}
+  .step .why{font-size:12.5px; color:var(--muted)}
+  .step .courses{margin-top:9px; display:flex; flex-wrap:wrap; gap:7px}
+  .course{
+    font-size:12px; padding:5px 10px; border-radius:8px;
+    background:#1c2745; border:1px solid #2c3a63; color:#c3d3f5;
+  }
+  .course em{color:var(--muted); font-style:normal; font-size:11px}
+
+  .note{font-size:12.5px; color:var(--muted); line-height:1.6; background:var(--panel);
+        border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:10px;
+        padding:12px 14px; margin-top:16px}
+
+  .rank{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid #1e2740}
+  .rank:last-child{border-bottom:none}
+  .rank .name{flex:1; font-size:14px}
+  .rank .meter{width:180px}
+  .rank .pct{width:56px; text-align:right; font-variant-numeric:tabular-nums; font-weight:600}
+
+  #graph{width:100%; height:460px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius)}
+  .err{color:var(--bad); font-size:13px; padding:12px}
+  .loading{color:var(--muted); font-size:13px; padding:20px}
+  .legend{display:flex; gap:16px; margin-top:10px; font-size:12px; color:var(--muted); flex-wrap:wrap}
+  .legend i{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Skill Graph — Lộ trình học cá nhân hóa</h1>
+    <div class="sub">ArangoDB · Document + Graph · AQL</div>
+  </div>
+  <div class="badge" id="modeBadge">đang kết nối…</div>
+</header>
+
+<main>
+  <div class="controls">
+    <div class="field">
+      <label>Người học</label>
+      <select id="userSel"></select>
+    </div>
+    <div class="field">
+      <label>Nghề mục tiêu</label>
+      <select id="careerSel"></select>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="gap">Skill Gap</button>
+    <button class="tab" data-tab="path">Lộ trình học</button>
+    <button class="tab" data-tab="match">Nghề phù hợp</button>
+    <button class="tab" data-tab="graph">Đồ thị</button>
+  </div>
+
+  <section class="panel active" id="panel-gap"></section>
+  <section class="panel" id="panel-path"></section>
+  <section class="panel" id="panel-match"></section>
+  <section class="panel" id="panel-graph">
+    <div id="graph"></div>
+    <div class="legend">
+      <span><i style="background:#5b8cff"></i>Career</span>
+      <span><i style="background:#39d3a0"></i>Skill</span>
+      <span><i style="background:#ffb454"></i>Course</span>
+    </div>
+    <div class="note">
+      Mũi tên giữ nguyên chiều <code>_from → _to</code> của dữ liệu.
+      Với <code>prerequisite</code>: <code>_from</code> là kỹ năng muốn học,
+      <code>_to</code> là kỹ năng cần có trước.
+    </div>
+  </section>
+</main>
+
+<script>
+const API = location.origin + '/api/v1';
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+let state = { users: [], careers: [], userId: null, careerKey: null };
+
+async function api(path) {
+  const r = await fetch(API + path);
+  const body = await r.json().catch(() => null);
+  if (!r.ok) throw new Error(body?.error?.message || `HTTP ${r.status}`);
+  return body;
+}
+
+function pct(n) { return (Number(n) || 0).toFixed(1); }
+
+async function boot() {
+  try {
+    const [health, users, careers] = await Promise.all([
+      api('/meta/health'), api('/users'), api('/careers')
+    ]);
+    $('#modeBadge').innerHTML =
+      `dữ liệu: <b>${health.dataMode}</b> · ${health.totalRecords} bản ghi`;
+    state.users = users.items;
+    state.careers = careers.items;
+
+    $('#userSel').innerHTML = state.users.map(u =>
+      `<option value="${esc(u.key)}">${esc(u.fullName)}${u.major ? ' — ' + esc(u.major) : ''}</option>`
+    ).join('');
+    $('#careerSel').innerHTML = state.careers.map(c =>
+      `<option value="${esc(c.key)}">${esc(c.name)}</option>`
+    ).join('');
+
+    // mặc định: user_001 + nghề mục tiêu của họ
+    const first = state.users.find(u => u.key === 'user_001') || state.users[0];
+    state.userId = first.key;
+    $('#userSel').value = first.key;
+    const detail = await api(`/users/${first.key}`);
+    state.careerKey = detail.targets[0]
+      ? detail.targets[0].careerId.split('/')[1]
+      : (state.careers.find(c => c.key === 'data_analyst') || state.careers[0]).key;
+    $('#careerSel').value = state.careerKey;
+
+    $('#userSel').onchange = (e) => { state.userId = e.target.value; refresh(); };
+    $('#careerSel').onchange = (e) => { state.careerKey = e.target.value; refresh(); };
+    document.querySelectorAll('.tab').forEach(t => {
+      t.onclick = () => {
+        document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        $('#panel-' + t.dataset.tab).classList.add('active');
+        if (t.dataset.tab === 'graph') renderGraph();
+      };
+    });
+    refresh();
+  } catch (err) {
+    document.querySelectorAll('.panel').forEach(p => {
+      if (p.classList.contains('active'))
+        p.innerHTML = `<div class="err">Không gọi được API: ${esc(err.message)}<br>
+        Kiểm tra backend đang chạy: <code>python run.py</code></div>`;
+    });
+  }
+}
+
+async function refresh() {
+  await Promise.all([renderGap(), renderPath(), renderMatch()]);
+}
+
+async function renderGap() {
+  const el = $('#panel-gap');
+  el.innerHTML = '<div class="loading">Đang phân tích…</div>';
+  try {
+    const g = await api(`/users/${state.userId}/skill-gap?career=${encodeURIComponent(state.careerKey)}`);
+    const rows = g.items.map(i => {
+      const cls = i.status === 'missing' ? 'missing' : i.status === 'below_level' ? 'below' : 'ok';
+      const label = i.status === 'missing' ? 'Chưa có'
+                  : i.status === 'below_level' ? 'Chưa đủ' : 'Đạt';
+      const cur = i.currentLevel == null ? '—' : i.currentLevel;
+      const gap = i.status === 'ok' ? '' : `thiếu ${i.gapLevel}`;
+      return `<tr>
+        <td>${esc(i.skill.name)}</td>
+        <td>${esc(i.skill.category || '')}</td>
+        <td>${esc(i.requirementType === 'essential' ? 'Bắt buộc' : 'Tùy chọn')}</td>
+        <td>${i.requiredLevel ?? '—'}</td>
+        <td>${cur}</td>
+        <td><span class="pill ${cls}">${label}${gap ? ' · ' + gap : ''}</span></td>
+      </tr>`;
+    }).join('');
+
+    el.innerHTML = `
+      <div class="cards">
+        <div class="card"><div class="k">Độ phủ</div>
+          <div class="v">${pct(g.coveragePct)}<small>%</small></div>
+          <div class="bar"><i style="width:${Math.min(100, g.coveragePct)}%"></i></div></div>
+        <div class="card"><div class="k">Tổng yêu cầu</div><div class="v">${g.totalRequired}</div></div>
+        <div class="card"><div class="k">Chưa có</div><div class="v" style="color:var(--bad)">${g.missingCount}</div></div>
+        <div class="card"><div class="k">Chưa đủ mức</div><div class="v" style="color:var(--warn)">${g.belowLevelCount}</div></div>
+        <div class="card"><div class="k">Đã đạt</div><div class="v" style="color:var(--ok)">${g.okCount}</div></div>
+      </div>
+      <div class="panel" style="display:block;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden">
+        <table>
+          <thead><tr>
+            <th>Kỹ năng</th><th>Nhóm</th><th>Loại</th><th>Cần</th><th>Hiện có</th><th>Trạng thái</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="note">
+        <b>${esc(g.user.fullName)}</b> hướng tới <b>${esc(g.career.name)}</b>.
+        “Cần” là <code>required_level</code> của nghề, “Hiện có” là
+        <code>proficiency</code> khai báo ở cạnh <code>has_skill</code> (thang 0–100).
+        Hệ thống <b>không</b> tự suy diễn kỹ năng chưa khai báo.
+      </div>`;
+  } catch (err) {
+    el.innerHTML = `<div class="err">${esc(err.message)}</div>`;
+  }
+}
+
+async function renderPath() {
+  const el = $('#panel-path');
+  el.innerHTML = '<div class="loading">Đang sinh lộ trình…</div>';
+  try {
+    const p = await api(`/users/${state.userId}/learning-path?career=${encodeURIComponent(state.careerKey)}&max_steps=20`);
+    if (!p.steps.length) {
+      el.innerHTML = `<div class="note">Bạn đã đáp ứng toàn bộ yêu cầu của nghề
+        <b>${esc(p.career.name)}</b>. Không còn bước nào cần học.</div>`;
+      return;
+    }
+    const steps = p.steps.map(s => `
+      <div class="step">
+        <div class="num">${s.order}</div>
+        <div>
+          <h4>${esc(s.skill.name)}
+            <span class="pill below" style="margin-left:8px">cần ${s.requiredLevel} · thiếu ${s.gapLevel}</span>
+          </h4>
+          <div class="why">${esc(s.reason)}${s.prerequisiteOf.length ? ' · mở khoá: ' + s.prerequisiteOf.map(esc).join(', ') : ''}</div>
+          <div class="courses">
+            ${s.recommendedCourses.length
+              ? s.recommendedCourses.map(c =>
+                  `<span class="course">${esc(c.title)} <em>· ${esc(c.level || '')} ${c.durationHours ? '· ' + c.durationHours + 'h' : ''}</em></span>`).join('')
+              : '<span class="course" style="opacity:.6">chưa có khóa học trong dữ liệu</span>'}
+          </div>
+        </div>
+      </div>`).join('');
+
+    el.innerHTML = `
+      <div class="cards">
+        <div class="card"><div class="k">Số bước</div><div class="v">${p.steps.length}</div></div>
+        <div class="card"><div class="k">Nghề mục tiêu</div><div class="v" style="font-size:17px;margin-top:10px">${esc(p.career.name)}</div></div>
+        <div class="card"><div class="k">Khóa đã học (loại khỏi gợi ý)</div><div class="v">${p.skippedCompletedCourses}</div></div>
+      </div>
+      <div class="steps">${steps}</div>
+      <div class="note">${esc(p.note)}</div>`;
+  } catch (err) {
+    el.innerHTML = `<div class="err">${esc(err.message)}</div>`;
+  }
+}
+
+async function renderMatch() {
+  const el = $('#panel-match');
+  el.innerHTML = '<div class="loading">Đang tính điểm phù hợp…</div>';
+  try {
+    const m = await api(`/users/${state.userId}/career-match`);
+    const top = m.items.slice(0, 12);
+    const rows = top.map(i => `
+      <div class="rank">
+        <div class="name">${esc(i.career.name)}<br>
+          <span style="font-size:11.5px;color:var(--muted)">
+            ${i.satisfiedTotal}/${i.requiredTotal} kỹ năng đạt
+            ${i.missingEssential ? ' · thiếu ' + i.missingEssential + ' bắt buộc' : ''}
+          </span>
+        </div>
+        <div class="meter"><div class="bar"><i style="width:${Math.min(100, i.matchPct)}%"></i></div></div>
+        <div class="pct">${pct(i.matchPct)}%</div>
+      </div>`).join('');
+    el.innerHTML = `
+      <div class="note" style="margin-top:0;margin-bottom:16px">
+        Điểm = tổng <code>importance</code> các kỹ năng đã đạt ÷ tổng importance
+        toàn bộ yêu cầu của nghề. Đây là <b>mức độ gần</b>, không phải chứng nhận
+        năng lực.
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:8px 16px">
+        ${rows}
+      </div>`;
+  } catch (err) {
+    el.innerHTML = `<div class="err">${esc(err.message)}</div>`;
+  }
+}
+
+async function renderGraph() {
+  const svg = $('#graph');
+  svg.innerHTML = '<div class="loading">Đang tải đồ thị…</div>';
+  try {
+    const g = await api(`/graph/neighborhood?focusId=careers/${encodeURIComponent(state.careerKey)}&mode=career&limit=60`);
+    drawGraph(g);
+  } catch (err) {
+    svg.innerHTML = `<div class="err">${esc(err.message)}</div>`;
+  }
+}
+
+function drawGraph(g) {
+  const host = $('#graph');
+  const W = host.clientWidth || 900, H = host.clientHeight || 460;
+  const cx = W / 2, cy = H / 2, R = Math.min(W, H) / 2 - 70;
+  const nodes = g.nodes;
+  const focusId = g.focus.id;
+
+  const pos = new Map();
+  const others = nodes.filter(n => n.id !== focusId);
+  pos.set(focusId, { x: cx, y: cy });
+  others.forEach((n, i) => {
+    const a = (i / others.length) * Math.PI * 2 - Math.PI / 2;
+    pos.set(n.id, { x: cx + Math.cos(a) * R, y: cy + Math.sin(a) * R });
+  });
+
+  const color = t => t === 'career' ? '#5b8cff' : t === 'skill' ? '#39d3a0'
+                  : t === 'course' ? '#ffb454' : '#8f7bff';
+
+  const edgeSvg = g.edges.map(e => {
+    const a = pos.get(e.source), b = pos.get(e.target);
+    if (!a || !b) return '';
+    return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"
+      stroke="#2d3a5e" stroke-width="1.4" marker-end="url(#arrow)"/>`;
+  }).join('');
+
+  const nodeSvg = nodes.map(n => {
+    const p = pos.get(n.id);
+    if (!p) return '';
+    const isFocus = n.id === focusId;
+    const r = isFocus ? 13 : 8;
+    const label = esc(n.label);
+    return `<g>
+      <circle cx="${p.x}" cy="${p.y}" r="${r}" fill="${color(n.type)}"
+              stroke="${isFocus ? '#fff' : 'none'}" stroke-width="${isFocus ? 2 : 0}"
+              opacity="${isFocus ? 1 : .9}"/>
+      <text x="${p.x}" y="${p.y + r + 13}" text-anchor="middle"
+            font-size="10.5" fill="#93a0c0">${label.length > 22 ? label.slice(0, 21) + '…' : label}</text>
+    </g>`;
+  }).join('');
+
+  host.innerHTML = `<svg width="100%" height="100%" viewBox="0 0 ${W} ${H}">
+    <defs><marker id="arrow" viewBox="0 0 10 10" refX="18" refY="5"
+      markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3c4c78"/></marker></defs>
+    ${edgeSvg}${nodeSvg}
+  </svg>`;
+}
+
+boot();
+</script>
+</body>
+</html>
