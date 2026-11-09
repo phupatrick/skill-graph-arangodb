@@ -84,7 +84,7 @@ Một cách khác nếu không có dump: import lại từ JSONL đã trích s�
 ```powershell
 docker exec -it arangodb arangosh --server.password "" --javascript.execute-string `
   "db._createDatabase('skill_graph_db')"
-# rồi import từng collection bằng arangoimport (xem docs/HUONG_DAN.md)
+# rồi import từng collection bằng arangoimport (xem docs/HUONG_DAN_CHI_TIET.md)
 ```
 
 ### 2.3 Trỏ backend vào ArangoDB
