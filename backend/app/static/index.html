@@ -132,16 +132,16 @@
   </div>
 
   <div class="tabs">
-    <button class="tab" data-tab="gap">Skill Gap</button>
+    <button class="tab active" data-tab="gap">Skill Gap</button>
     <button class="tab" data-tab="path">Lộ trình học</button>
     <button class="tab" data-tab="match">Nghề phù hợp</button>
-    <button class="tab" data-tab="graph" class="tab active">Đồ thị</button>
+    <button class="tab" data-tab="graph">Đồ thị</button>
   </div>
 
-  <section class="panel" id="panel-gap"></section>
+  <section class="panel active" id="panel-gap"></section>
   <section class="panel" id="panel-path"></section>
   <section class="panel" id="panel-match"></section>
-  <section class="panel" id="panel-graph" class="panel active">
+  <section class="panel" id="panel-graph">
     <div id="graph"></div>
     <div class="legend">
       <span><i style="background:#5b8cff"></i>Career</span>
@@ -406,5 +406,5 @@ function drawGraph(g) {
 
 boot();
 </script>
-<script>window.addEventListener('load',function(){setTimeout(function(){var b=document.querySelector('.tab[data-tab="graph"]');if(b)b.click();},1500);});</script></body>
+</body>
 </html>
