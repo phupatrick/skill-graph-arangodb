@@ -53,3 +53,9 @@ frontend-connected/
 # Tai lieu hoc tap / bao cao / slide / anh: gui rieng, KHONG dua len repo
 docs/
 TAI_LIEU_SKILLGRAPH/
+
+# Frontend React: chi commit ma nguon, KHONG commit thu vien va file build
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env

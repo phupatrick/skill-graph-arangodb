@@ -1,0 +1,25 @@
+{
+  "project": "Skill Graph and personalized learning with ArangoDB",
+  "release_version": "v3.55",
+  "sprint": 92,
+  "handoff_stage": "team_preview_not_data_freeze",
+  "collections": 24,
+  "records": 5718,
+  "careers": 12,
+  "skills": 420,
+  "courses": 504,
+  "providers": 179,
+  "essential_total": 343,
+  "essential_direct_topic": 323,
+  "essential_unmapped": 20,
+  "default_database_for_teammate": "skill_graph_team_preview_v355",
+  "named_graph": "skill_graph",
+  "import_safety": "new_database_only_existing_database_refused",
+  "live_verified_on_teammate_machine": false,
+  "notes": [
+    "all 24 data collections preserved",
+    "No automatic recommendation approval",
+    "No validated prerequisite edges",
+    "App authentication/Flask API not bundled"
+  ]
+}

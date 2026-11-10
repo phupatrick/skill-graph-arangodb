@@ -1,0 +1,179 @@
+{"_key":"ansible","name":"Ansible Community","official_website":"https://docs.ansible.com/"}
+{"_key":"atlassian","name":"Atlassian","official_website":"https://www.atlassian.com/"}
+{"_key":"autodesk","name":"Autodesk","official_url":"https://www.autodesk.com/","source":"official_provider_page","verification":"official_provider_url"}
+{"_key":"c4model","name":"C4 Model","official_website":"https://c4model.com/"}
+{"_key":"camunda","name":"Camunda","official_website":"https://camunda.com/"}
+{"_key":"cisco_netacad","name":"Cisco Networking Academy","source":"provider_official_site","website":"https://www.netacad.com/"}
+{"_key":"cognitive_class","name":"Cognitive Class","official_website":"https://cognitiveclass.ai/"}
+{"_key":"coursera","name":"Coursera","official_website":"https://www.coursera.org/"}
+{"_key":"dbdiagram","name":"dbdiagram","official_website":"https://dbdiagram.io/"}
+{"_key":"docker","name":"Docker","official_website":"https://docs.docker.com/"}
+{"_key":"elements_ai","name":"Elements of AI / University of Helsinki","source":"provider_official_site","website":"https://www.elementsofai.com/"}
+{"_key":"figma","name":"Figma","official_website":"https://www.figma.com/"}
+{"_key":"github","name":"GitHub","official_website":"https://github.com/"}
+{"_key":"github_docs","name":"GitHub Docs","official_website":"https://docs.github.com/"}
+{"_key":"google_developers","name":"Google for Developers","official_website":"https://developers.google.com/"}
+{"_key":"harvard_cs50","name":"Harvard CS50","source":"provider_official_site","website":"https://cs50.harvard.edu/"}
+{"_key":"hashicorp","name":"HashiCorp Developer","official_website":"https://developer.hashicorp.com/"}
+{"_key":"internet_society","name":"Internet Society","source":"provider_official_site","website":"https://www.internetsociety.org/"}
+{"_key":"istqb","name":"ISTQB","official_website":"https://istqb.org/"}
+{"_key":"jenkins","name":"Jenkins","official_website":"https://www.jenkins.io/"}
+{"_key":"joomla","name":"Joomla!","official_website":"https://www.joomla.org/"}
+{"_key":"kubernetes","name":"Kubernetes","official_website":"https://kubernetes.io/"}
+{"_key":"mdn","name":"MDN Web Docs","official_website":"https://developer.mozilla.org/"}
+{"_key":"mermaid","name":"Mermaid","official_website":"https://mermaid.js.org/"}
+{"_key":"microsoft_learn","name":"Microsoft Learn","official_website":"https://learn.microsoft.com/training/"}
+{"_key":"mit_ocw","name":"MIT OpenCourseWare","source":"provider_official_site","website":"https://ocw.mit.edu/"}
+{"_key":"odin_project","name":"The Odin Project","official_website":"https://www.theodinproject.com/"}
+{"_key":"openlearn","name":"OpenLearn / Open University","official_website":"https://www.open.edu/openlearn/"}
+{"_key":"openstax","name":"OpenStax","official_website":"https://openstax.org/"}
+{"_key":"oracle_docs","name":"Oracle","official_website":"https://docs.oracle.com/"}
+{"_key":"owasp","name":"OWASP Foundation","official_website":"https://owasp.org/"}
+{"_key":"pandas","name":"pandas","official_website":"https://pandas.pydata.org/"}
+{"_key":"postgresql","name":"PostgreSQL","official_website":"https://www.postgresql.org/"}
+{"_key":"pytest","name":"pytest","official_website":"https://docs.pytest.org/"}
+{"_key":"python_docs","name":"Python Software Foundation","official_website":"https://docs.python.org/"}
+{"_key":"refactoring_guru","name":"Refactoring.Guru","official_website":"https://refactoring.guru/"}
+{"_key":"scikit_learn","name":"scikit-learn","official_website":"https://scikit-learn.org/"}
+{"_key":"spacy","name":"Explosion / spaCy","official_website":"https://spacy.io/"}
+{"_key":"sqlbolt","name":"SQLBolt","official_website":"https://sqlbolt.com/"}
+{"_key":"turing_way","name":"The Turing Way","official_website":"https://book.the-turing-way.org/"}
+{"_key":"vitest","name":"Vitest","official_website":"https://vitest.dev/"}
+{"_key":"vscode","name":"Visual Studio Code","official_website":"https://code.visualstudio.com/"}
+{"_key":"w3c","name":"W3C","official_website":"https://www.w3.org/"}
+{"_key":"eu_rea","name":"European Research Executive Agency","official_website":"https://rea.ec.europa.eu/"}
+{"_key":"elsevier","name":"Elsevier Researcher Academy","official_website":"https://researcheracademy.elsevier.com/"}
+{"_key":"mit_pdos","name":"MIT PDOS","official_website":"https://pdos.csail.mit.edu/"}
+{"_key":"linux_foundation","name":"Linux Foundation Training","official_website":"https://training.linuxfoundation.org/"}
+{"_key":"hubspot_academy","name":"HubSpot Academy","official_website":"https://academy.hubspot.com/"}
+{"_key":"visual_paradigm","name":"Visual Paradigm","official_website":"https://www.visual-paradigm.com/"}
+{"_key":"fema","name":"FEMA","official_website":"https://www.fema.gov/"}
+{"_key":"sap_learning","name":"SAP Learning","official_website":"https://learning.sap.com/"}
+{"_key":"r_packages","name":"R Packages 2e Authors","official_website":"https://r-pkgs.org/"}
+{"_key":"british_council","name":"British Council LearnEnglish","official_website":"https://learnenglish.britishcouncil.org/","source":"provider_official_site"}
+{"_key":"enisa","name":"European Union Agency for Cybersecurity (ENISA)","official_website":"https://www.enisa.europa.eu/","source":"provider_official_site"}
+{"_key":"ec_research_innovation","name":"European Commission – Research and Innovation","official_website":"https://research-and-innovation.ec.europa.eu/","source":"provider_official_site"}
+{"_key":"typescript_docs","name":"TypeScript Documentation","official_website":"https://www.typescriptlang.org/","source":"official_provider_site","verification_scope":"public_provider_identity"}
+{"_key":"ruby_docs","name":"Ruby Language Documentation","official_website":"https://www.ruby-lang.org/","source":"official_provider_site","verification_scope":"public_provider_identity"}
+{"_key":"php_docs","name":"PHP Documentation","official_website":"https://www.php.net/","source":"official_provider_site","verification_scope":"public_provider_identity"}
+{"_key":"scala_docs","name":"Scala Documentation","official_website":"https://docs.scala-lang.org/","source":"official_provider_site","verification_scope":"public_provider_identity"}
+{"_key":"r_core","name":"R Core Team / CRAN","official_website":"https://www.r-project.org/","source":"official_provider_site","verification_scope":"public_provider_identity"}
+{"_key":"wordpress_docs","name":"WordPress Documentation","official_website":"https://wordpress.org/","source":"official_provider_site","verification_scope":"public_provider_identity"}
+{"_key":"scratch_mit","name":"Scratch / MIT","official_website":"https://scratch.mit.edu/","source":"official_provider_site","verification_scope":"public_provider_identity"}
+{"_key":"coffeescript_project","name":"CoffeeScript Project","official_website":"https://coffeescript.org/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"erlang_otp","name":"Erlang/OTP","official_website":"https://www.erlang.org/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"apache_groovy","name":"Apache Groovy","official_website":"https://groovy-lang.org/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"haskell_org","name":"Haskell.org","official_website":"https://www.haskell.org/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"mathworks","name":"MathWorks","official_website":"https://www.mathworks.com/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"swift_org","name":"Swift.org","official_website":"https://www.swift.org/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"apache_maven","name":"Apache Maven","official_website":"https://maven.apache.org/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"sparkjava","name":"Spark Framework (Java)","official_website":"https://www.sparkjava.com/","source":"official_publisher_identification_v327s02","verification_scope":"public_provider_identity"}
+{"_key":"couchbase","name":"Couchbase","official_website":"https://www.couchbase.com/","source":"official_resource_publisher_v327s03","verification_scope":"public_provider_identity"}
+{"_key":"apple_developer","name":"Apple Developer","official_website":"https://developer.apple.com/","source":"official_resource_publisher_v327s03","verification_scope":"public_provider_identity"}
+{"_key":"free_pascal","name":"Free Pascal Project","official_website":"https://www.freepascal.org/","source":"official_resource_publisher_v327s03","verification_scope":"public_provider_identity"}
+{"_key":"perl_project","name":"Perl Project","official_website":"https://www.perl.org/","source":"official_resource_publisher_v327s03","verification_scope":"public_provider_identity"}
+{"_key":"swi_prolog","name":"SWI-Prolog","official_website":"https://www.swi-prolog.org/","source":"official_resource_publisher_v327s03","verification_scope":"public_provider_identity"}
+{"_key":"openldap","name":"OpenLDAP","official_website":"https://www.openldap.org/","source":"official_resource_publisher_v327s03","verification_scope":"public_provider_identity"}
+{"_key":"ibm_developer","name":"IBM Developer","official_website":"https://developer.ibm.com/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"common_lisp_community","name":"Common Lisp Cookbook Community","official_website":"https://github.com/LispCookbook/cl-cookbook","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"smlnj","name":"Standard ML of New Jersey","official_website":"https://smlnj.org/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"progress_openedge","name":"Progress OpenEdge","official_website":"https://www.progress.com/openedge","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"sas","name":"SAS Institute","official_website":"https://www.sas.com/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"pharo","name":"Pharo Project","official_website":"https://www.pharo-project.org/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"dyalog","name":"Dyalog","official_website":"https://www.dyalog.com/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"scrum_org","name":"Scrum.org","official_website":"https://www.scrum.org/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"eclipse_foundation","name":"Eclipse Foundation","official_website":"https://www.eclipse.org/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"microsoft_support","name":"Microsoft Support","official_website":"https://support.microsoft.com/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"apache_hadoop","name":"Apache Hadoop","official_website":"https://hadoop.apache.org/","source":"official_project_publisher_v327s04","verification_scope":"public_page_source_attribution"}
+{"_key":"kde_documentation","name":"KDE Documentation","official_website":"https://docs.kde.org/","source":"public_publisher_identification_v327s05","verification_scope":"source_identity_only"}
+{"_key":"ibm_docs_v327s05","name":"IBM Product Documentation","official_website":"https://www.ibm.com/docs/","source":"public_publisher_identification_v327s05","verification_scope":"source_identity_only"}
+{"_key":"marklogic_docs","name":"MarkLogic Documentation","official_website":"https://docs.marklogic.com/","source":"public_publisher_identification_v327s05","verification_scope":"source_identity_only"}
+{"_key":"puppet_docs","name":"Puppet Documentation","official_website":"https://help.puppet.com/","source":"public_publisher_identification_v327s05","verification_scope":"source_identity_only"}
+{"_key":"saltproject_docs","name":"Salt Project Documentation","official_website":"https://docs.saltproject.io/","source":"public_publisher_identification_v327s05","verification_scope":"source_identity_only"}
+{"_key":"claris_docs","name":"Claris Documentation","official_website":"https://help.claris.com/","source":"public_publisher_identification_v327s05","verification_scope":"source_identity_only"}
+{"_key":"nist","name":"National Institute of Standards and Technology","official_website":"https://www.nist.gov/","source":"public_publisher_identification_v327s05","verification_scope":"source_identity_only"}
+{"_key":"teradata_docs_v327s06","name":"Teradata Documentation","official_website":"https://docs.teradata.com/","source":"publisher_identified_v327s06","verification_scope":"source_identity_only"}
+{"_key":"pytorch_official","name":"PyTorch Tutorials","official_website":"https://pytorch.org/","source":"publisher_identified_v327s06","verification_scope":"source_identity_only"}
+{"_key":"digitalgov_official","name":"Digital.gov (US GSA)","official_website":"https://digital.gov/","source":"publisher_identified_v327s06","verification_scope":"source_identity_only"}
+{"_key":"apache_tomcat_official","name":"Apache Tomcat Documentation","official_website":"https://tomcat.apache.org/","source":"publisher_identified_v327s06","verification_scope":"source_identity_only"}
+{"_key":"v327s07_provider_5744ccb98232cff10815569c","name":"Sass","official_website":"https://sass-lang.com/","source":"publisher_identified_v327s07","verification_scope":"source_identity_only"}
+{"_key":"v327s07_provider_d7561f148cdf93722dc64f07","name":"Less.js","official_website":"https://lesscss.org/","source":"publisher_identified_v327s07","verification_scope":"source_identity_only"}
+{"_key":"v327s07_provider_8d7963fdc10e2fbcc1c82b50","name":"Drupal.org","official_website":"https://www.drupal.org/","source":"publisher_identified_v327s07","verification_scope":"source_identity_only"}
+{"_key":"v327s07_provider_59d9c83caff3f7755987ce65","name":"WildFly","official_website":"https://www.wildfly.org/","source":"publisher_identified_v327s07","verification_scope":"source_identity_only"}
+{"_key":"v327s07_provider_91231ff9ab6685fac02e3b2f","name":"MongoDB","official_website":"https://www.mongodb.com/","source":"publisher_identified_v327s07","verification_scope":"source_identity_only"}
+{"_key":"v327s07_provider_ae682be595cf98f6f2edb8ce","name":"Ethereum.org","official_website":"https://ethereum.org/","source":"publisher_identified_v327s07","verification_scope":"source_identity_only"}
+{"_key":"v327s07_provider_dffa1ba889f64fdcb890eefb","name":"NIST Computer Security Resource Center","official_website":"https://csrc.nist.gov/","source":"publisher_identified_v327s07","verification_scope":"source_identity_only"}
+{"_key":"v327s08_provider_f2bd7ea5ebae6fd85d02c75f","name":"Progress Software","official_website":"https://www.progress.com/","source":"publisher_identified_v327s08","verification_scope":"source_identity_only"}
+{"_key":"v327s08_provider_90baba7b18fb4ccbe5fecd27","name":"Google Analytics Help","official_website":"https://support.google.com/analytics/","source":"publisher_identified_v327s08","verification_scope":"source_identity_only"}
+{"_key":"v327s08_provider_0a9b33ee9917d69091a5cf97","name":"Ontotext GraphDB","official_website":"https://graphdb.ontotext.com/","source":"publisher_identified_v327s08","verification_scope":"source_identity_only"}
+{"_key":"v327s08_provider_5bb6d1b367fc767413a7bd6b","name":"WireGuard","official_website":"https://www.wireguard.com/","source":"publisher_identified_v327s08","verification_scope":"source_identity_only"}
+{"_key":"v327s08_provider_e28a70b2356a8e991440ce97","name":"Selenium","official_website":"https://www.selenium.dev/","source":"publisher_identified_v327s08","verification_scope":"source_identity_only"}
+{"_key":"v327s08_provider_4c0aa1c24339e0eddd5cbdc4","name":"Hyperledger Fabric","official_website":"https://hyperledger-fabric.readthedocs.io/","source":"publisher_identified_v327s08","verification_scope":"source_identity_only"}
+{"_key":"v327s09_provider_1972cff49e16494de025cc06","name":"Salesforce Trailhead","official_website":"https://trailhead.salesforce.com/","source":"publisher_identified_v327s09","verification_scope":"source_identity_only"}
+{"_key":"v327s09_provider_c7c036d7a68e10523565ee1c","name":"CDC","official_website":"https://www.cdc.gov/","source":"publisher_identified_v327s09","verification_scope":"source_identity_only"}
+{"_key":"v327s09_provider_8a7fad46f44e114e3e714fa3","name":"Google Analytics Developers","official_website":"https://developers.google.com/analytics/","source":"publisher_identified_v327s09","verification_scope":"source_identity_only"}
+{"_key":"v327s09_provider_a9d35ae9c3c32b5e42ddaefc","name":"SAS","official_website":"https://www.sas.com/","source":"publisher_identified_v327s09","verification_scope":"source_identity_only"}
+{"_key":"v327s09_provider_1aa31e9249131b02cbd38090","name":"NetworkX","official_website":"https://networkx.org/","source":"publisher_identified_v327s09","verification_scope":"source_identity_only"}
+{"_key":"v327s09_provider_710eb4f4d7f72b0e329a51d3","name":"Ubuntu","official_website":"https://ubuntu.com/","source":"publisher_identified_v327s09","verification_scope":"source_identity_only"}
+{"_key":"v327s09_provider_5472478515dbdd3920ebdd32","name":"TU Delft OpenCourseWare","official_website":"https://ocw.tudelft.nl/","source":"publisher_identified_v327s09","verification_scope":"source_identity_only"}
+{"_key":"v327s10_provider__ebc994680322efaec9c77440","name":"Design Council","official_website":"https://www.designcouncil.org.uk/","source":"publisher_identified_v327s10","verification_scope":"publisher_identity_only"}
+{"_key":"v327s10_provider__a9a3837518b2a02ea2d7ff9a","name":"Information Commissioner's Office","official_website":"https://ico.org.uk/","source":"publisher_identified_v327s10","verification_scope":"publisher_identity_only"}
+{"_key":"v327s10_provider__0ed28c84b98e664697dc4c00","name":"Digital Curation Centre","official_website":"https://dcc.ac.uk/","source":"publisher_identified_v327s10","verification_scope":"publisher_identity_only"}
+{"_key":"v327s10_provider__273affea07272195dc69a7c1","name":"Unity Learn","official_website":"https://learn.unity.com/","source":"publisher_identified_v327s10","verification_scope":"publisher_identity_only"}
+{"_key":"v327s10_provider__c92615b62d917c51eb24cc4d","name":"EMBL-EBI Training","official_website":"https://www.ebi.ac.uk/training/","source":"publisher_identified_v327s10","verification_scope":"publisher_identity_only"}
+{"_key":"v327s10_provider__d2e2a050dc432c290d8610d9","name":"Stanford Teaching Commons","official_website":"https://teachingcommons.stanford.edu/","source":"publisher_identified_v327s10","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_2337ba6adad23e613036b183","name":"IBM Documentation","official_website":"https://www.ibm.com/docs","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_5de0e9080cd755d5980414b4","name":"Informatica Documentation","official_website":"https://docs.informatica.com","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_d365a8dcc01ba926fb4e37f6","name":"SAP Help Portal","official_website":"https://help.sap.com","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_646289936c7b0409bd7e824a","name":"Pentaho Documentation","official_website":"https://docs.pentaho.com","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_69c8b9e418054c1f73fe97bb","name":"Oracle Documentation","official_website":"https://docs.oracle.com","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_1b29226934e647c506c97b90","name":"NIST","official_website":"https://csrc.nist.gov","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_d3ff378ef73a094fddd5b17e","name":"SANS Institute","official_website":"https://www.sans.org","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_ca3cc0732bbad7d247d8e1a1","name":"Alloy Tools","official_website":"https://alloytools.org","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s11_provider_dcb7084826e80add3712becf","name":"Nand2Tetris","official_website":"https://www.nand2tetris.org","source":"publisher_identified_v327s11","verification_scope":"publisher_identity_only"}
+{"_key":"v327s12_provider_ce0b713dfa8375e929345104","name":"Google SRE Books","official_website":"https://sre.google","source":"publisher_identified_v327s12","verification_scope":"publisher_identity_only"}
+{"_key":"v327s12_provider_8b987b58bd9622471d0f5065","name":"Green Software Foundation","official_website":"https://greensoftware.foundation","source":"publisher_identified_v327s12","verification_scope":"publisher_identity_only"}
+{"_key":"v327s12_provider_bb0c2ad01ed1e4c038b22316","name":"Hyperledger Foundation","official_website":"https://hyperledger-fabric.readthedocs.io","source":"publisher_identified_v327s12","verification_scope":"publisher_identity_only"}
+{"_key":"v327s12_provider_90bfe4e84ba5bd8ecaee0a8a","name":"Amazon Developer Documentation","official_website":"https://developer.amazon.com","source":"publisher_identified_v327s12","verification_scope":"publisher_identity_only"}
+{"_key":"v327s12_provider_8246e1676042f9afcf8148bf","name":"SciPy Documentation","official_website":"https://docs.scipy.org","source":"publisher_identified_v327s12","verification_scope":"publisher_identity_only"}
+{"_key":"v327s12_provider_33f1bf382808d10158b41e9b","name":"US National Archives","official_website":"https://www.archives.gov","source":"publisher_identified_v327s12","verification_scope":"publisher_identity_only"}
+{"_key":"v327s12_provider_078d6b5a4acde02074443d1f","name":"npm Documentation","official_website":"https://docs.npmjs.com","source":"publisher_identified_v327s12","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_85cb57caf04b7baf4d435179","name":"ISACA","official_website":"https://www.isaca.org","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_44334e7030d4e010ed774977","name":"Digital.gov","official_website":"https://digital.gov","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_973a4a818d799636d44525df","name":"IBM","official_website":"https://www.ibm.com","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_b09360845c025115cbe0e23c","name":"Siemens Digital Industries Software","official_website":"https://www.siemens.com","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_a243cc05b274bf244cf5e493","name":"Cornell Center for Teaching Innovation","official_website":"https://teaching.cornell.edu","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_ac0bd77c0265737547db91b3","name":"International Telecommunication Union","official_website":"https://www.itu.int","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_e905fb7a92e94306353e3583","name":"OpenAPI Generator","official_website":"https://openapi-generator.tech","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s13_provider_15d47404a195bc5516f5b679","name":"U.S. Department of Energy","official_website":"https://www.energy.gov","source":"publisher_identified_v327s13","verification_scope":"publisher_identity_only"}
+{"_key":"v327s14_provider_57e5668bb0117c76a8c7285c","name":"Dojo Toolkit","official_website":"https://dojotoolkit.org","source":"publisher_identified_v327s14","verification_scope":"publisher_identity_only"}
+{"_key":"v327s14_provider_5b9df6e6c08f9a2ac45c9a13","name":"STAF Project","official_website":"https://staf.sourceforge.net","source":"publisher_identified_v327s14","verification_scope":"publisher_identity_only"}
+{"_key":"v327s14_provider_ace0fc1bd762a6704377a86c","name":"NATO","official_website":"https://www.nato.int","source":"publisher_identified_v327s14","verification_scope":"publisher_identity_only"}
+{"_key":"v327s14_provider_0bb02387f36be1aeb4dc481b","name":"National Academies Press / NCBI Bookshelf","official_website":"https://www.ncbi.nlm.nih.gov","source":"publisher_identified_v327s14","verification_scope":"publisher_identity_only"}
+{"_key":"v327s18_provider_ab51efb1c89ca65e5e4dcc00","name":"DBeaver","official_website":"https://dbeaver.com/","source":"publisher_identified_v327s18","verification_scope":"publisher_identity_only"}
+{"_key":"v328s21_provider_git_scm","name":"Git SCM / Pro Git","official_website":"https://git-scm.com/","source":"publisher_identified_v328s21","verification_scope":"publisher_official_public_page_identity"}
+{"_key":"data_org","name":"data.org","official_website":"https://data.org/","source":"official_publisher_identity_v331s24","verification_scope":"public_source_page_only"}
+{"_key":"ucl","name":"University College London (UCL)","official_website":"https://www.ucl.ac.uk/","source":"official_publisher_identity_v331s24","verification_scope":"public_source_page_only"}
+{"_key":"edinburgh_mantra","name":"University of Edinburgh","official_website":"https://www.ed.ac.uk/","source":"university_mantra_official_course_page_sprint26","verification_scope":"public_publisher_identity_only"}
+{"_key":"alison","name":"Alison","official_website":"https://alison.com/"}
+{"_key":"s41_uk_dfe","name":"UK Department for Education","official_website":"https://www.gov.uk/government/organisations/department-for-education","source":"official_publication_identity_sprint41","verification_scope":"official_public_source_page_not_user_local_access"}
+{"_key":"dbt_labs","name":"dbt Labs","official_website":"https://www.getdbt.com/","source":"official_publisher_website_sprint43","verification_scope":"publisher_identity_only"}
+{"_key":"s45_tu_berlin","name":"Technische Universität Berlin","official_website":"https://www.tu.berlin/","source":"official_university_publisher_webpage_sprint45","verification_scope":"publisher_identity_only"}
+{"_key":"s52_penn_state","name":"Penn State Eberly College of Science","official_website":"https://online.stat.psu.edu/","source":"official_publisher_documentation_review_sprint52","verification_scope":"publisher_identity_only"}
+{"_key":"s52_numpy_project","name":"NumPy","official_website":"https://numpy.org/","source":"official_publisher_documentation_review_sprint52","verification_scope":"publisher_identity_only"}
+{"_key":"aws_docs","name":"Amazon Web Services — Official Documentation","official_website":"https://docs.aws.amazon.com/","source":"official_source_attribution_sprint62","verification_scope":"official_publisher_identity_public_information_only"}
+{"_key":"us_ori","name":"U.S. Office of Research Integrity (HHS)","official_website":"https://ori.hhs.gov/","source":"official_source_attribution_sprint62","verification_scope":"official_publisher_identity_public_information_only"}
+{"_key":"nih_grants","name":"U.S. National Institutes of Health — Grants and Funding","official_website":"https://grants.nih.gov/","source":"official_source_attribution_sprint62","verification_scope":"official_publisher_identity_public_information_only"}
+{"_key":"tensorflow_org","name":"TensorFlow — Official Tutorials","official_website":"https://www.tensorflow.org/","source":"official_publisher_review_sprint65","verification_scope":"official_publisher_identity_public_information_only"}
+{"_key":"dora_dev","name":"DORA — DevOps Research and Assessment","official_website":"https://dora.dev/","source":"official_publisher_review_sprint65","verification_scope":"official_publisher_identity_public_information_only"}
+{"_key":"stanford_teachingwriting","name":"Stanford University — TeachingWriting","official_website":"https://teachingwriting.stanford.edu/","source":"official_stanford_teachingwriting_publisher_review_sprint71","verification_scope":"Stanford University subsite identified from institutional web domain; no endorsement of arbitrary third-party materials"}
+{"_key":"s74_monday_com","name":"monday.com","official_website":"https://monday.com/","source":"official_publisher_guide_review_sprint74","verification_scope":"public_publisher_attribution_only; no commercial endorsement or account verification"}
+{"_key":"turing_school_software_design","name":"Turing School of Software and Design","official_website":"https://turing.edu/","source":"public_school_curriculum_attribution_sprint84","verification_scope":"school attribution only, not enrollment/credential verification"}
+{"_key":"s89_icann","name":"ICANN — Internet Corporation for Assigned Names and Numbers","official_website":"https://www.icann.org","source":"publisher_page_attribution_sprint89","verification_scope":"public_publisher_org; course lessons require login"}
+{"_key":"s89_ietf","name":"Internet Engineering Task Force (IETF)","official_website":"https://www.ietf.org","source":"official_standards_body_sprint89","verification_scope":"public Internet standards process"}
+{"_key":"s89_nasa","name":"NASA","official_website":"https://www.nasa.gov","source":"official_handbook_publisher_sprint89","verification_scope":"public engineering guidance not course enrollment"}
+{"_key":"s90_ut_austin","name":"University of Texas at Austin Libraries","official_website":"https://www.lib.utexas.edu/","source":"publisher_page_attribution_sprint90","verification_scope":"public page only"}
+{"_key":"s90_odk","name":"ODK","official_website":"https://getodk.org/","source":"publisher_page_attribution_sprint90","verification_scope":"public page only"}
+{"_key":"s90_openaire","name":"OpenAIRE","official_website":"https://www.openaire.eu/","source":"publisher_page_attribution_sprint90","verification_scope":"public page only"}
+{"_key":"s91_wipo","name":"WIPO Academy","official_website":"https://www.wipo.int/","source":"official_publisher_page_attribution_sprint91","verification_scope":"public_page_only_no_enrollment_or_cost_guarantee"}
+{"_key":"s91_nng","name":"Nielsen Norman Group","official_website":"https://www.nngroup.com/","source":"official_publisher_page_attribution_sprint91","verification_scope":"public_page_only_no_enrollment_or_cost_guarantee"}

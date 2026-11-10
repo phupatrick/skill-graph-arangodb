@@ -18,10 +18,12 @@ skillgraph/
 ├── data/                    12 collection dạng JSONL (trích từ dump thật)
 ├── arangodb-dump/           ★ Dump gốc ArangoDB (43 KB) để arangorestore
 ├── queries/aql_queries.aql  Bộ truy vấn AQL để dán vào ArangoDB Web UI
-├── frontend-bridge/         File cầu nối nối backend với frontend React
+├── frontend/                ★ Giao diện React, đã nối sẵn vào backend
+├── frontend-bridge/         File cầu nối (bản gốc để chép sang frontend khác)
 ├── docker-compose.yml       Dựng ArangoDB bằng Docker (tuỳ chọn)
-├── CHAY_NGAY.bat            ★ Bấm đúp để chạy (Windows)
-└── CHAY_NGAY.sh             ★ Chạy trên macOS / Linux
+├── CHAY_CA_HAI.bat          ★★ Bấm đúp: chạy CẢ backend + giao diện React
+├── CHAY_NGAY.bat            ★ Chỉ chạy backend + giao diện demo HTML
+└── CHAY_NGAY.sh             ★ Như trên, cho macOS / Linux
 ```
 
 **Công nghệ:** Python 3.10+ · FastAPI · Pydantic v2 · ArangoDB 3.11+ (AQL) · HTML/SVG thuần
@@ -34,12 +36,21 @@ skillgraph/
 
 Không cần biết gì về lập trình. Chỉ cần **bấm đúp 1 file**.
 
+### Chọn file nào?
+
+| Bạn muốn | Bấm file | Cần cài thêm |
+|---|---|---|
+| **Giao diện React** + backend (đầy đủ nhất, để demo trước lớp) | `CHAY_CA_HAI.bat` | Python + **Node.js** |
+| Chỉ backend + giao diện demo HTML (nhẹ nhất, không cần Node) | `CHAY_NGAY.bat` | Python |
+
+> Nếu chưa chắc, chọn **`CHAY_CA_HAI.bat`** — nó chạy cả hai, đầy đủ nhất để bảo vệ.
+
 ### Windows
 
 1. Tải repo về: bấm nút xanh **`Code`** → **`Download ZIP`** → giải nén.
-2. Vào thư mục vừa giải nén, **bấm đúp vào `CHAY_NGAY.bat`**.
-3. Đợi khoảng 10–30 giây (lần đầu lâu hơn vì phải cài thư viện).
-4. Trình duyệt **tự mở** giao diện. Xong.
+2. Vào thư mục vừa giải nén, **bấm đúp vào `CHAY_CA_HAI.bat`**.
+3. Đợi khoảng 30–90 giây (lần đầu lâu hơn vì cài thư viện Python + npm).
+4. Hai cửa sổ đen hiện ra (backend và frontend), trình duyệt **tự mở**. Xong.
 
 ### macOS / Linux
 
@@ -47,26 +58,31 @@ Không cần biết gì về lập trình. Chỉ cần **bấm đúp 1 file**.
 bash CHAY_NGAY.sh
 ```
 
-### Script tự làm gì?
+### `CHAY_CA_HAI.bat` tự làm gì?
 
 | Bước | Việc làm | Nếu thiếu thì sao |
 |---|---|---|
 | 1 | Tìm Python trên máy | In hướng dẫn cài kèm link tải |
-| 2 | Kiểm tra `fastapi`, `uvicorn`, `pydantic` | **Tự cài** (1–2 phút), báo lỗi rõ nếu không có mạng |
-| 3 | Kiểm tra 12 file dữ liệu | Báo thiếu file nào, nhắc tải lại đủ bộ |
-| 4 | Khởi động server + **tự mở trình duyệt** | — |
+| 2 | Kiểm tra `fastapi`, `uvicorn`, `pydantic` | **Tự cài**, báo lỗi rõ nếu không có mạng |
+| 3 | Tìm Node.js | In hướng dẫn cài, gợi ý dùng `CHAY_NGAY.bat` nếu không muốn cài |
+| 4 | Kiểm tra `frontend/node_modules` | **Tự `npm install`** (1–3 phút lần đầu) |
+| 5 | Tạo `frontend/.env.local` nếu chưa có | Tự trỏ API về backend |
+| 6 | Mở 2 cửa sổ: backend (8000) + frontend (5173) | Tự mở trình duyệt sau khi cả hai lên |
 
-Script **không cài gì vào hệ thống ngoài thư viện Python**, không sửa file,
-không cần quyền admin.
+Script **không cài gì vào hệ thống ngoài thư viện Python và npm**, không sửa file
+nguồn, không cần quyền admin.
 
 ### Nếu bị lỗi
 
 | Hiện tượng | Cách sửa |
 |---|---|
 | "KHONG TIM THAY PYTHON" | Cài Python 3.11+ từ <https://www.python.org/downloads/>. **Nhớ tích `Add python.exe to PATH`** khi cài |
-| "CAI THU VIEN THAT BAI" | Không có mạng, hoặc mạng công ty chặn `pip`. Thử phát 4G từ điện thoại |
-| Cửa sổ đen hiện rồi tắt ngay | Chuột phải `CHAY_NGAY.bat` → **Run as administrator** |
-| Trình duyệt không tự mở | Tự mở <http://127.0.0.1:8000/demo> |
+| "KHONG TIM THAY NODE.JS" | Cài bản LTS từ <https://nodejs.org/>. Hoặc dùng `CHAY_NGAY.bat` (không cần Node) |
+| "CAI THU VIEN THAT BAI" | Không có mạng, hoặc mạng công ty chặn `pip`/`npm`. Thử phát 4G từ điện thoại |
+| Cửa sổ đen hiện rồi tắt ngay | Chuột phải file `.bat` → **Run as administrator** |
+| Trình duyệt không tự mở | Tự mở <http://127.0.0.1:5173> (React) hoặc <http://127.0.0.1:8000/demo> (HTML) |
+| Trang React hiện 12/420/504 | Chưa nối backend. Kiểm tra `frontend/.env.local` có `VITE_DATA_SOURCE=api` và `VITE_API_BASE_URL=http://127.0.0.1:8000/compat` |
+| "Port 8000 đang bận" | Đã có chương trình khác dùng cổng 8000. Tắt nó rồi chạy lại |
 | "Port 8000 đang bận" | Đã có chương trình khác dùng cổng 8000. Tắt nó, hoặc xem mục 6 bên dưới |
 
 ### Địa chỉ sau khi chạy
