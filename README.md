@@ -44,6 +44,57 @@ skillgraph/
 
 ---
 
+## ⚡ Chạy ngay trong 1 bước (dành cho cả nhóm)
+
+Không cần biết gì về lập trình. Chỉ cần **bấm đúp 1 file**.
+
+### Windows
+
+1. Tải repo về: bấm nút xanh **`Code`** → **`Download ZIP`** → giải nén.
+2. Vào thư mục vừa giải nén, **bấm đúp vào `CHAY_NGAY.bat`**.
+3. Đợi khoảng 10–30 giây (lần đầu lâu hơn vì phải cài thư viện).
+4. Trình duyệt **tự mở** giao diện. Xong.
+
+### macOS / Linux
+
+```bash
+bash CHAY_NGAY.sh
+```
+
+### Script tự làm gì?
+
+| Bước | Việc làm | Nếu thiếu thì sao |
+|---|---|---|
+| 1 | Tìm Python trên máy | In hướng dẫn cài kèm link tải |
+| 2 | Kiểm tra `fastapi`, `uvicorn`, `pydantic` | **Tự cài** (1–2 phút), báo lỗi rõ nếu không có mạng |
+| 3 | Kiểm tra 12 file dữ liệu | Báo thiếu file nào, nhắc tải lại đủ bộ |
+| 4 | Khởi động server + **tự mở trình duyệt** | — |
+
+Script **không cài gì vào hệ thống ngoài thư viện Python**, không sửa file,
+không cần quyền admin.
+
+### Nếu bị lỗi
+
+| Hiện tượng | Cách sửa |
+|---|---|
+| "KHONG TIM THAY PYTHON" | Cài Python 3.11+ từ <https://www.python.org/downloads/>. **Nhớ tích `Add python.exe to PATH`** khi cài |
+| "CAI THU VIEN THAT BAI" | Không có mạng, hoặc mạng công ty chặn `pip`. Thử phát 4G từ điện thoại |
+| Cửa sổ đen hiện rồi tắt ngay | Chuột phải `CHAY_NGAY.bat` → **Run as administrator** |
+| Trình duyệt không tự mở | Tự mở <http://127.0.0.1:8000/demo> |
+| "Port 8000 đang bận" | Đã có chương trình khác dùng cổng 8000. Tắt nó, hoặc xem mục 6 bên dưới |
+
+### Địa chỉ sau khi chạy
+
+| Địa chỉ | Dùng để |
+|---|---|
+| <http://127.0.0.1:8000/demo> | **Giao diện 4 tab** — dùng để demo trước lớp |
+| <http://127.0.0.1:8000/docs> | Tài liệu API, bấm thử trực tiếp được |
+| <http://127.0.0.1:8000/api/v1/meta/health> | Kiểm tra hệ thống còn sống |
+
+> **Tắt hệ thống:** đóng cửa sổ đen, hoặc bấm `Ctrl+C` trong đó.
+
+---
+
 ## 1. Chạy nhanh nhất (không cần cài ArangoDB)
 
 Backend đọc trực tiếp 12 file JSONL trong `backend/data/`, dữ liệu **thật**
