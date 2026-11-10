@@ -10,6 +10,11 @@
 *.jpg  binary
 *.zip  binary
 
+# Dump ArangoDB: file .gz là NHỊ PHẦN. Nếu để git coi là text và đổi CRLF/LF
+# thì arangorestore sẽ báo lỗi "invalid gzip header" — dump hỏng hoàn toàn.
+*.gz     binary
+*.json.gz binary
+
 # Ngôn ngữ để GitHub hiển thị thống kê đúng
 *.py   text
 *.aql  text

@@ -16,6 +16,7 @@ skillgraph/
 │   ├── scripts/             extract_dump.py, smoke_test.py, test_compat.py
 │   └── requirements.txt
 ├── data/                    12 collection dạng JSONL (trích từ dump thật)
+├── arangodb-dump/           ★ Dump gốc ArangoDB (43 KB) để arangorestore
 ├── queries/aql_queries.aql  Bộ truy vấn AQL để dán vào ArangoDB Web UI
 ├── frontend-bridge/         File cầu nối nối backend với frontend React
 ├── docker-compose.yml       Dựng ArangoDB bằng Docker (tuỳ chọn)
@@ -116,30 +117,63 @@ docker compose up -d arangodb
 
 ArangoDB chạy tại <http://127.0.0.1:8529> (user `root`).
 
-### 2.2 Nạp dữ liệu thật vào ArangoDB
+### 2.2 Nạp dữ liệu vào ArangoDB
 
-Nếu đã nhận file dump `skill_graph_db` từ nhóm, cách chuẩn là `arangorestore`:
+**Dump đã có sẵn trong repo**, không phải xin ai:
+
+```
+arangodb-dump/skill_graph_db_dump/     ← 26 file, 43 KB, 1.584 bản ghi
+```
+
+Cách chuẩn là `arangorestore` — **đừng** dùng nút *Import JSON* trên ArangoDB
+Web Interface, vì nó chỉ tạo document và **mất toàn bộ edge** → đồ thị vô dụng.
 
 ```powershell
-docker cp .\skill_graph_db_dump arangodb:/tmp/dump
+# 1. Tạo database đích
+docker exec -it arangodb arangosh `
+  --server.username root --server.password "" `
+  --javascript.execute-string "db._createDatabase('skill_graph_db')"
+
+# 2. Chép dump vào container
+docker cp .\arangodb-dump\skill_graph_db_dump arangodb:/tmp/dump
+
+# 3. Khôi phục
 docker exec arangodb arangorestore `
   --server.endpoint tcp://127.0.0.1:8529 `
   --server.database skill_graph_db `
   --server.username root `
   --server.password "mat_khau_cua_ban" `
-  --input-directory /tmp/dump
+  --input-directory /tmp/dump `
+  --include-system-collections false `
+  --overwrite true
 ```
 
-> ⚠️ **Đừng** dùng nút *Import JSON* trên ArangoDB Web Interface cho dump này:
-> nó chỉ tạo document, **mất toàn bộ edge** → đồ thị vô dụng.
+Nếu **không** dùng Docker, đổi `docker exec arangodb` thành gọi trực tiếp
+`arangorestore` nếu máy đã cài ArangoDB.
 
-Một cách khác nếu không có dump: import lại từ JSONL đã trích sẵn.
+Kiểm tra khôi phục thành công — phải ra **1.584**:
 
 ```powershell
-docker exec -it arangodb arangosh --server.password "" --javascript.execute-string `
-  "db._createDatabase('skill_graph_db')"
-# rồi import từng collection bằng arangoimport
+docker exec arangodb arangosh `
+  --server.username root --server.password "mat_khau_cua_ban" `
+  --server.database skill_graph_db `
+  --javascript.execute-string "print(db._collections().length, db.skills.count())"
+# mong đợi: 12 248
 ```
+
+**Số bản ghi từng collection** (đã đối chiếu khớp với `data/*.jsonl`):
+
+| Collection | Bản ghi | | Collection | Bản ghi |
+|---|---|---|---|---|
+| `users` | 40 | | `has_skill` | 274 |
+| `skills` | 248 | | `targets_career` | 40 |
+| `careers` | 29 | | `requires_skill` | 312 |
+| `courses` | 89 | | `prerequisite` | 173 |
+| `providers` | 8 | | `teaches` | 172 |
+| | | | `completed` | 110 |
+| | | | `offered_by` | 89 |
+
+> Dump không chứa mật khẩu hay dữ liệu nhạy cảm (`ENCRYPTION` ghi `none`).
 
 ### 2.3 Trỏ backend vào ArangoDB
 

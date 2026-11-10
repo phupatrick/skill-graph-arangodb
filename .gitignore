@@ -31,7 +31,9 @@ Thumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 
-# ArangoDB dump gốc (nặng, không cần đưa lên repo — đã trích ra data/*.jsonl)
+# File nen / dump nang KHONG dua len repo.
+# LUU Y: dump thuc te cua do an da nam trong arangodb-dump/ (43 KB)
+# va DUOC commit binh thuong - chi file .tar.gz / .dump nang moi bi chan.
 *.tar.gz
 *.dump
 dump/
