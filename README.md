@@ -5,38 +5,23 @@
 **kỹ năng tiên quyết nhiều tầng**, gợi ý **khóa học** và sinh **lộ trình học
 cá nhân hóa** cho từng người dùng.
 
-![Giao diện demo — tab Skill Gap](docs/screenshots/01-demo-skillgap.png)
-
-<p align="center">
-  <img src="docs/screenshots/02-demo-lo-trinh.png" width="49%" alt="Tab Lộ trình học" />
-  <img src="docs/screenshots/03-demo-nghe-phu-hop.png" width="49%" alt="Tab Nghề phù hợp" />
-</p>
-<p align="center">
-  <img src="docs/screenshots/04-demo-do-thi.png" width="70%" alt="Tab Đồ thị" />
-</p>
-
-> Ảnh chụp từ hệ thống thật với `user_001` hướng tới nghề **Data Analyst**:
-> độ phủ 27,3% · lộ trình 8 bước · Data Analyst 24,9% đứng đầu.
+> **Repo này chỉ chứa code + dữ liệu.**
+> Báo cáo, slide, tài liệu giải thích và ảnh chụp được **gửi riêng** cho
+> thành viên nhóm (file `TAI_LIEU_SKILLGRAPH.zip`), không đặt trong repo.
 
 ```
 skillgraph/
 ├── backend/                 API Python (FastAPI) + toàn bộ nghiệp vụ
 │   ├── app/                 mã nguồn
-│   ├── scripts/             extract_dump.py, smoke_test.py, sinh tài liệu
+│   ├── scripts/             extract_dump.py, smoke_test.py, test_compat.py
 │   └── requirements.txt
 ├── data/                    12 collection dạng JSONL (trích từ dump thật)
 ├── queries/aql_queries.aql  Bộ truy vấn AQL để dán vào ArangoDB Web UI
+├── frontend-bridge/         File cầu nối nối backend với frontend React
 ├── docker-compose.yml       Dựng ArangoDB bằng Docker (tuỳ chọn)
-└── docs/                    Báo cáo + slide + tài liệu học tập
-    ├── BAO_CAO_DO_AN.docx        Báo cáo đồ án (4 chương, 13 trang)
-    ├── BAO_CAO_SLIDE.pptx        Slide thuyết trình (10 slide)
-    ├── GIAI_THICH_CHI_TIET.docx  ★ Tài liệu học tập & thuyết trình (41 trang)
-    ├── HUONG_DAN_CHI_TIET.md     Bản markdown của hướng dẫn chi tiết
-    └── screenshots/              Ảnh chụp 4 tab giao diện demo
+├── CHAY_NGAY.bat            ★ Bấm đúp để chạy (Windows)
+└── CHAY_NGAY.sh             ★ Chạy trên macOS / Linux
 ```
-
-> **Mới tham gia nhóm?** Đọc `docs/GIAI_THICH_CHI_TIET.docx` trước — giải thích từ
-> số 0, có kịch bản nói từng slide và 25 câu hỏi bảo vệ kèm câu trả lời mẫu.
 
 **Công nghệ:** Python 3.10+ · FastAPI · Pydantic v2 · ArangoDB 3.11+ (AQL) · HTML/SVG thuần
 
@@ -153,7 +138,7 @@ Một cách khác nếu không có dump: import lại từ JSONL đã trích s�
 ```powershell
 docker exec -it arangodb arangosh --server.password "" --javascript.execute-string `
   "db._createDatabase('skill_graph_db')"
-# rồi import từng collection bằng arangoimport (xem docs/HUONG_DAN_CHI_TIET.md)
+# rồi import từng collection bằng arangoimport
 ```
 
 ### 2.3 Trỏ backend vào ArangoDB
@@ -310,8 +295,8 @@ python scripts\test_compat.py     # mong đợi: 21 đạt / 0 hỏng
 **29 nghề / 248 kỹ năng / 89 học liệu / 0 nhóm ESCO / 8 nhà cung cấp**.
 Nếu thấy 12 / 420 / 504 / 149 / 179 thì vẫn đang dùng dữ liệu local.
 
-> Chi tiết đầy đủ, kể cả **7 lỗi đã gặp và cách sửa**, xem
-> [`docs/NOI_FRONTEND_VOI_BACKEND.md`](docs/NOI_FRONTEND_VOI_BACKEND.md).
+> Chi tiết đầy đủ (kể cả 7 lỗi đã gặp và cách sửa) nằm trong tài liệu
+> `NOI_FRONTEND_VOI_BACKEND.md`, gửi riêng cho thành viên nhóm.
 
 ### Vì sao `/compat` mà không phải `/api/v1`
 

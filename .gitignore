@@ -47,3 +47,7 @@ dump/
 
 # Ban sao frontend de chay thu (co node_modules, khong dua len repo)
 frontend-connected/
+
+# Tai lieu hoc tap / bao cao / slide / anh: gui rieng, KHONG dua len repo
+docs/
+TAI_LIEU_SKILLGRAPH/
