@@ -20,7 +20,7 @@ from fastapi.staticfiles import StaticFiles
 from .config import get_settings
 from .deps import create_core
 from .errors import register_exception_handlers
-from .routers import analysis, careers, courses, meta, skills, users
+from .routers import analysis, careers, compat, courses, meta, skills, users
 
 # Console Windows mặc định cp1258 -> in tiếng Việt bị lỗi khi log.
 for _stream in (sys.stdout, sys.stderr):
@@ -77,6 +77,11 @@ app.include_router(courses.router)
 app.include_router(courses.providers_router)
 app.include_router(analysis.analysis_router)
 app.include_router(analysis.graph_router)
+
+# Router tương thích cho frontend React trong gói bàn giao (NoSQL_Do_An-main).
+# Nằm dưới tiền tố riêng /compat/api/v1 để KHÔNG đụng các route gốc ở trên:
+# cùng đường dẫn /careers nhưng hai hình dạng dữ liệu khác nhau.
+app.include_router(compat.router)
 
 
 @app.get("/", include_in_schema=False)

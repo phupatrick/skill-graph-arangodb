@@ -44,3 +44,6 @@ dump/
 
 # Log
 *.log
+
+# Ban sao frontend de chay thu (co node_modules, khong dua len repo)
+frontend-connected/

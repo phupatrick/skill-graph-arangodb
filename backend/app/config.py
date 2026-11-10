@@ -60,7 +60,12 @@ class Settings:
             origin.strip()
             for origin in os.getenv(
                 "SKILLGRAPH_CORS_ORIGINS",
-                "http://localhost:5173,http://127.0.0.1:5173,http://localhost:4173,http://127.0.0.1:4173",
+                # 5173/5174: `npm run dev` của Vite (5174 là cổng dự phòng khi
+                # 5173 đang bận). 4173/4174: `npm run preview`.
+                "http://localhost:5173,http://127.0.0.1:5173,"
+                "http://localhost:5174,http://127.0.0.1:5174,"
+                "http://localhost:4173,http://127.0.0.1:4173,"
+                "http://localhost:4174,http://127.0.0.1:4174",
             ).split(",")
             if origin.strip()
         )

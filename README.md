@@ -217,7 +217,71 @@ làm đề tài này.
 
 ---
 
-## 8. Ghi chú trung thực
+## 8. Nối với Frontend React (gói bàn giao)
+
+Backend có sẵn một **lớp tương thích** phục vụ đúng hợp đồng API mà frontend
+React trong `NoSQL_Do_An-main` mong đợi — **không phải sửa frontend gốc**.
+
+| Thành phần | Vị trí | Vai trò |
+|---|---|---|
+| Lớp dịch lược đồ | `backend/app/data/compat.py` | Chuyển document thô sang hình dạng frontend cần |
+| Router tương thích | `backend/app/routers/compat.py` | 20 endpoint dưới `/compat/api/v1` |
+| Cầu nối TypeScript | `frontend-bridge/catalogRepositoryApi.ts` | Cài đặt thật của `CatalogRepository`, gọi HTTP |
+| Kiểm thử | `backend/scripts/test_compat.py` | 21 điểm kiểm thử (chạy khi backend đã bật) |
+
+### Chạy thử
+
+```powershell
+# Cửa sổ 1 — backend
+cd backend
+python run.py
+
+# Cửa sổ 2 — kiểm tra lớp tương thích
+python scripts\test_compat.py     # mong đợi: 21 đạt / 0 hỏng
+```
+
+### Nối frontend (chỉ sửa 1 dòng)
+
+1. Chép `frontend-bridge/catalogRepositoryApi.ts` vào
+   `NoSQL_Do_An-main/src/repositories/`
+2. Trong `src/repositories/catalogRepository.ts`, thêm import và đổi
+   `new HttpCatalogRepository()` thành `new HttpCatalogRepositoryApi()`
+3. Tạo `.env.local` ở thư mục gốc frontend (**không BOM**):
+
+   ```
+   VITE_DATA_SOURCE=api
+   VITE_API_BASE_URL=http://127.0.0.1:8000/compat
+   ```
+
+4. `npm install` rồi `npm run dev`
+
+**Cách nhận biết đã nối đúng:** 5 ô số liệu ở trang chủ hiện
+**29 nghề / 248 kỹ năng / 89 học liệu / 0 nhóm ESCO / 8 nhà cung cấp**.
+Nếu thấy 12 / 420 / 504 / 149 / 179 thì vẫn đang dùng dữ liệu local.
+
+> Chi tiết đầy đủ, kể cả **7 lỗi đã gặp và cách sửa**, xem
+> [`docs/NOI_FRONTEND_VOI_BACKEND.md`](docs/NOI_FRONTEND_VOI_BACKEND.md).
+
+### Vì sao `/compat` mà không phải `/api/v1`
+
+Vì cùng đường dẫn `/api/v1/careers` nhưng hai bên cần **hai hình dạng khác
+nhau**: backend chính trả `{items, total}`, frontend cần mảng trần `Career[]`.
+Tách tiền tố để cả hai cùng đúng mà không phá vỡ bên nào.
+
+### Giới hạn phải nói thật
+
+`skill_graph_db` **không có** `skill_groups` và 4 collection `esco_*`, nên
+phần "Nhóm ESCO" và tab "ESCO Taxonomy" hiển thị rỗng. Đó là phản ánh trung
+thực của bộ dữ liệu, **không phải lỗi**. Lớp tương thích trả mảng rỗng chứ
+không bịa dữ liệu.
+
+Ngoài ra `StatisticsDashboard.tsx` còn hardcode "5.718 tổng bản ghi" — sót lại
+của bản v3.55, số đúng là **1.584**. Đây là chuỗi tĩnh trong frontend gốc,
+không phải dữ liệu lấy từ backend.
+
+---
+
+## 9. Ghi chú trung thực
 
 - Mật khẩu ArangoDB **không** nằm trong code; phải truyền qua biến môi trường.
 - Backend hiện **chỉ đọc** dữ liệu. Phần CRUD được thực hiện bằng AQL
